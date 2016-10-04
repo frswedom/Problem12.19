@@ -1,8 +1,9 @@
-#include<iostream>
-#include<cmath>
+#include <iostream>
+#include <cmath>
+#include "GaussQuadrature.h"
 
 using namespace std;
-using uint = unsigned;
+using uint = size_t;
 double f1(double x)
 {
 	return sqrt(0.4*x*x + 1.5) / (2.5 + sqrt(2 * x + 0.8));
@@ -58,27 +59,30 @@ double ChebyshevIntegration(double(*func)(double), double minValue, double maxVa
 	return res;
 }
 
-double GaussIntegration(double(*func)(double), double minValue, double maxValue, uint steps)
-{
-	static const double roots[][]{{0.5773502691896258}
-	};
 
-}
 int main()
 {
 	double eps;
 	cout << "Enter presicious: \n";
 	cin >> eps;
 	cout.precision(16);
+	GaussQuadrature::Initialize();
 	cout << SimpsonIntegration(f1, 0.8, 2.4, 10000) << endl;
-	cout << SimpsonIntegration(f2, 0.4, 0.8, 10000) << endl; 
-	cout << SimpsonIntegration(f3, 0.4, 2.6, 10000) << endl;
-	cout << SimpsonIntegration(f4, 2.4, 3.2, 10000) << endl;
-
 	cout << ChebyshevIntegration(f1, 0.8, 2.4) << endl;
+	cout << GaussQuadrature::Integration(f1, 0.8, 2.4) << endl;
+	cout << endl;
+	cout << SimpsonIntegration(f2, 0.4, 0.8, 10000) << endl; 
 	cout << ChebyshevIntegration(f2, 0.4, 0.8) << endl;
+	cout << GaussQuadrature::Integration(f2, 0.4, 0.8) << endl;
+	cout << endl;
+	cout << SimpsonIntegration(f3, 0.4, 2.6, 10000) << endl;
 	cout << ChebyshevIntegration(f3, 0.4, 2.6) << endl;
+	cout << GaussQuadrature::Integration(f3, 0.4, 2.6) << endl;
+	cout << endl;
+	cout << SimpsonIntegration(f4, 2.4, 3.2, 10000) << endl;
 	cout << ChebyshevIntegration(f4, 2.4, 3.2) << endl;
+	cout << GaussQuadrature::Integration(f4, 2.4, 3.2) << endl;
+
 	return 0;
 }
 
